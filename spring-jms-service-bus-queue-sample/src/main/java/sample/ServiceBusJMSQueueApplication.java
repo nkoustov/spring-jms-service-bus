@@ -25,9 +25,9 @@ public class ServiceBusJMSQueueApplication {
     private String connectionString;
 
     @Value("${spring.jms.servicebus.idle-timeout}")
-    private int idleTimeout;
+    private int idleTimeout = 50000;
 
-    private static final String AMQP_URI_FORMAT = "amqps://%s?amqp.idleTimeout=%d";
+    private static final String AMQP_URI_FORMAT = "amqps://%s?amqp.idleTimeout=%d&amqp.traceFrames=true";
 
     @Bean
     public ConnectionFactory myConnectionFactory() {
@@ -41,6 +41,9 @@ public class ServiceBusJMSQueueApplication {
         jmsConnectionFactory.setRemoteURI(remoteUri);
         jmsConnectionFactory.setUsername(sasKeyName);
         jmsConnectionFactory.setPassword(sasKey);
+        jmsConnectionFactory.setCloseTimeout(idleTimeout);
+        jmsConnectionFactory.setConnectTimeout(idleTimeout);
+        System.out.println(remoteUri);
         return new CachingConnectionFactory(jmsConnectionFactory);
     }
 

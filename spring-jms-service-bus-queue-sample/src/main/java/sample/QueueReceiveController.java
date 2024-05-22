@@ -8,17 +8,19 @@ package sample;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 @Component
 public class QueueReceiveController {
 
-    private static final String QUEUE_NAME = "testqueue";
+    @Value("${spring.jms.servicebus.queue-name}")
+    private final String queueName = "queue";
 
     private final Logger logger = LoggerFactory.getLogger(QueueReceiveController.class);
 
-    @JmsListener(destination = QUEUE_NAME, containerFactory = "myQueueFactory")
+    @JmsListener(destination = queueName, containerFactory = "myQueueFactory")
     public void receiveQueueMessage(User user) {
         logger.info("Receiving message from queue: {}", user.getName());
     }

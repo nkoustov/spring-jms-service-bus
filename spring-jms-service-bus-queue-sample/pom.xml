@@ -15,4 +15,16 @@
     <name>spring-jms-service-bus-queue-sample</name>
     <description>Sample project for Spring JMS with Service Bus Queue</description>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>sample.ServiceBusJMSQueueApplication</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
